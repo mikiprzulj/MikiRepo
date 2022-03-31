@@ -1,5 +1,6 @@
 package ooit;
 
+import geometry.Donut;
 import geometry.Line;
 import geometry.Point;
 
@@ -27,6 +28,12 @@ public class TestApp {
 		
 		Line l = new Line(new Point(3, 5), p1);			
 		System.out.println(l.length());
+		
+		Point center = new Point(0, 0);
+		Donut krofna = new Donut(center, 10, 5);
+		
+		System.out.println(krofna.contains(new Point(7, 0)));
+		System.out.println(krofna.contains(new Point(4, 0)));
 	}
 
 }
