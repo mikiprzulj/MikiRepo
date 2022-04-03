@@ -1,10 +1,9 @@
 package geometry;
 
-public class Point {
+public class Point extends Shape {
 	
 	private int x;
 	private int y;
-	private boolean selected;
 		
 	public Point() {
 		
@@ -13,6 +12,12 @@ public class Point {
 	public Point(int x, int y) {
 		this.x = x;
 		this.y = y;
+	}
+	
+	public Point(int x, int y, boolean selected) {
+		super(selected);
+		this.x = x;
+		this.y = y;	
 	}
 
 	public int getX() {
@@ -30,14 +35,6 @@ public class Point {
 	public void setY(int y) {
 		this.y = y;
 	}
-	
-	public boolean isSelected() {
-		return selected;
-	}
-	
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
 
 	public double distance(Point p) {
 	
@@ -49,6 +46,16 @@ public class Point {
 	
 	public void finalize() {
 		System.out.println("Brisanje");
+	}
+
+	public String toString() {
+		return "(" + this.x + "," + this.y + ")";
+	}
+
+	@Override
+	public boolean contains(int x, int y) {
+		Point p = new Point(x, y);
+		return this.distance(p) < 3;
 	}
 	
 }

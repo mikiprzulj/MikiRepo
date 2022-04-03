@@ -1,6 +1,6 @@
 package geometry;
 
-public class Rectangle {
+public class Rectangle extends Shape {
 	
 	private Point upperLeftPoint;
 	private int width;
@@ -12,6 +12,13 @@ public class Rectangle {
 		this.height = height;
 	}
 
+	public Rectangle(Point upperLeftPoint, int width, int height, boolean selected) {
+		super(selected);
+		this.upperLeftPoint = upperLeftPoint;
+		this.width = width;
+		this.height = height;
+	}
+	
 	public Point getUpperLeftPoint() {
 		return upperLeftPoint;
 	}
@@ -44,5 +51,10 @@ public class Rectangle {
 	public boolean isSquare() {
 		return height == width;
 		
+	}
+	
+	public boolean contains(int x, int y) {
+		return x > upperLeftPoint.getX() && x < (upperLeftPoint.getX() + width)
+				&& y > upperLeftPoint.getY() && y < (upperLeftPoint.getY() + height);
 	}
 }
