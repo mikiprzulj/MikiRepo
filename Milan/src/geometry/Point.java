@@ -1,5 +1,7 @@
 package geometry;
 
+import java.awt.Graphics;
+
 public class Point extends Shape {
 	
 	private int x;
@@ -56,6 +58,12 @@ public class Point extends Shape {
 	public boolean contains(int x, int y) {
 		Point p = new Point(x, y);
 		return this.distance(p) < 3;
+	}
+
+	@Override
+	public void draw(Graphics g) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

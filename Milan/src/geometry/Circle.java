@@ -1,5 +1,7 @@
 package geometry;
 
+import java.awt.Graphics;
+
 public class Circle extends Shape {
 
 	protected Point center;
@@ -39,4 +41,12 @@ public class Circle extends Shape {
 	public double area() {
 		return Math.PI * radius * radius;
 	}
+
+	@Override
+	public void draw(Graphics g) {
+		g.drawOval(center.getX() - radius, center.getY() - radius, 2 * radius, 2 * radius);
+		
+	}
+	
+
 }
