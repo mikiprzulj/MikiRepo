@@ -62,8 +62,8 @@ public class Point extends Shape {
 
 	@Override
 	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		
+		g.drawLine(x-1, y, x+1, y);
+		g.drawLine(x, y-1, x, y+1);
 	}
 	
 }

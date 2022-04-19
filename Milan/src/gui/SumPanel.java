@@ -11,13 +11,16 @@ import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Dimension;
 
 public class SumPanel extends JPanel {
 	private JTextField txtPrviBroj;
 	private JTextField txtDrugiBroj;
 	private JTextField txtRezultat;
-	private JButton btnSaberi;
 	private JButton btnClear;
+	private JPanel panel;
+	private JButton btnSaberi;
+	private JButton btnPomnozi;
 
 	/**
 	 * Create the panel.
@@ -25,9 +28,9 @@ public class SumPanel extends JPanel {
 	public SumPanel() {
 		GridBagLayout gridBagLayout = new GridBagLayout();
 		gridBagLayout.columnWidths = new int[]{0, 0, 0};
-		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0};
-		gridBagLayout.columnWeights = new double[]{0.0, 1.0, Double.MIN_VALUE};
-		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+		gridBagLayout.rowHeights = new int[]{0, 0, 0, 0, 0, 0, 0};
+		gridBagLayout.columnWeights = new double[]{1.0, 1.0, Double.MIN_VALUE};
+		gridBagLayout.rowWeights = new double[]{0.0, 0.0, 1.0, 0.0, 0.0, 1.0, Double.MIN_VALUE};
 		setLayout(gridBagLayout);
 		
 		JLabel lblNewLabel = new JLabel("Prvi broj");
@@ -65,7 +68,18 @@ public class SumPanel extends JPanel {
 		add(txtDrugiBroj, gbc_txtDrugiBroj);
 		txtDrugiBroj.setColumns(10);
 		
+		panel = new JPanel();
+		panel.setMaximumSize(new Dimension(10, 10));
+		GridBagConstraints gbc_panel = new GridBagConstraints();
+		gbc_panel.fill = GridBagConstraints.HORIZONTAL;
+		gbc_panel.gridwidth = 2;
+		gbc_panel.insets = new Insets(0, 0, 5, 0);
+		gbc_panel.gridx = 0;
+		gbc_panel.gridy = 2;
+		add(panel, gbc_panel);
+		
 		btnSaberi = new JButton("Saberi");
+		panel.add(btnSaberi);
 		
 		btnSaberi.addActionListener(new ActionListener() {			
 			public void actionPerformed(ActionEvent arg0) {				
@@ -73,12 +87,15 @@ public class SumPanel extends JPanel {
 			}
 		});
 		
-		GridBagConstraints gbc_btnSaberi = new GridBagConstraints();
-		gbc_btnSaberi.gridwidth = 2;
-		gbc_btnSaberi.insets = new Insets(0, 0, 5, 0);
-		gbc_btnSaberi.gridx = 0;
-		gbc_btnSaberi.gridy = 2;
-		add(btnSaberi, gbc_btnSaberi);
+		btnPomnozi = new JButton("Pomnozi");
+		panel.add(btnPomnozi);
+		
+		btnPomnozi.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				multiply();
+			}
+		});
+		panel.add(btnPomnozi);
 		
 		JLabel lblNewLabel_2 = new JLabel("Rezultat");
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -104,7 +121,9 @@ public class SumPanel extends JPanel {
 			}			
 		});
 		GridBagConstraints gbc_btnClear = new GridBagConstraints();
-		gbc_btnClear.gridx = 1;
+		gbc_btnClear.insets = new Insets(0, 0, 5, 0);
+		gbc_btnClear.gridwidth = 2;
+		gbc_btnClear.gridx = 0;
 		gbc_btnClear.gridy = 4;
 		add(btnClear, gbc_btnClear);
 
@@ -135,5 +154,19 @@ public class SumPanel extends JPanel {
 		
 		int rezultat = prviBroj + drugiBroj;
 		txtRezultat.setText(String.valueOf(rezultat));
+	}
+	
+	public void multiply() {
+		try {
+			int prviBroj = Integer.parseInt(txtPrviBroj.getText());
+			int drugiBroj = Integer.parseInt(txtDrugiBroj.getText());
+			
+			int rezultat = prviBroj * drugiBroj;
+			txtRezultat.setText(String.valueOf(rezultat));	
+		} catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "Morate uneti ceo broj", "Greska", JOptionPane.ERROR_MESSAGE);
+		}
+		
 	}
 }
