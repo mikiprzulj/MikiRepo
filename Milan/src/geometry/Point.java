@@ -1,6 +1,8 @@
 package geometry;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 public class Point extends Shape {
 	
@@ -64,6 +66,14 @@ public class Point extends Shape {
 	public void draw(Graphics g) {
 		g.drawLine(x-1, y, x+1, y);
 		g.drawLine(x, y-1, x, y+1);
+		if (selected) {
+			Point upperLeft = new Point(this.x - 3, this.y - 3);
+			Rectangle r = new Rectangle(upperLeft, 6, 6);
+			Color previousColor = g.getColor(); 
+			g.setColor(Color.BLUE);
+			r.draw(g);
+			g.setColor(previousColor);
+		}
 	}
 	
 }

@@ -43,5 +43,10 @@ public class Donut extends Circle implements Comparable {
 	public void draw(Graphics g) {
 		super.draw(g);
 		g.drawOval(center.getX() - innerRadius, center.getY() - innerRadius, 2 * innerRadius, 2 * innerRadius);
+		if (selected) {
+			Circle c = new Circle(center, innerRadius, true);
+			c.draw(g);
+		}
+		
 	}
 }

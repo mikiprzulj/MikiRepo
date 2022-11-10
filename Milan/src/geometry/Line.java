@@ -52,6 +52,14 @@ public class Line extends Shape {
 	
 	public void draw(Graphics g) {
 		g.drawLine(startPoint.getX(), startPoint.getY(), endPoint.getX(), endPoint.getY());
+		if (selected) {
+			Point upperLeft1 = new Point(startPoint.getX() - 2, startPoint.getY() - 2);
+			Rectangle r1 = new Rectangle(upperLeft1, 4, 4);
+			r1.draw(g);
+			Point upperLeft2 = new Point(endPoint.getX() - 2, endPoint.getY() - 2);
+			Rectangle r2 = new Rectangle(upperLeft2, 4, 4);
+			r2.draw(g);
+		}
 	}
 
 }

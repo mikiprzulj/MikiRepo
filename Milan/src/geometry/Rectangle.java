@@ -63,6 +63,18 @@ public class Rectangle extends Shape {
 	@Override
 	public void draw(Graphics g) {
 		g.drawRect(upperLeftPoint.getX(), upperLeftPoint.getY(), width, height);
-		
+		if (selected) {
+			upperLeftPoint.setSelected(true);
+			upperLeftPoint.draw(g);
+			
+			Point upperRight = new Point(upperLeftPoint.getX() + width, upperLeftPoint.getY(), true);
+			upperRight.draw(g);
+			
+			Point lowerRight = new Point(upperLeftPoint.getX() + width, upperLeftPoint.getY() + height, true);
+			lowerRight.draw(g);
+			
+			Point lowerLeft = new Point(upperLeftPoint.getX(), upperLeftPoint.getY() + height, true);
+			lowerLeft.draw(g);
+		}
 	}
 }

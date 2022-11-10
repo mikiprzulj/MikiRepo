@@ -45,7 +45,19 @@ public class Circle extends Shape {
 	@Override
 	public void draw(Graphics g) {
 		g.drawOval(center.getX() - radius, center.getY() - radius, 2 * radius, 2 * radius);
-		
+		if (selected) {
+			Point north = new Point(center.getX(), center.getY() - radius, true);
+			north.draw(g);
+			
+			Point south = new Point(center.getX(), center.getY() + radius, true);
+			south.draw(g);
+			
+			Point west = new Point(center.getX() - radius, center.getY(), true);
+			west.draw(g);
+			
+			Point east = new Point(center.getX() + radius, center.getY(), true);
+			east.draw(g);
+		}
 	}
 	
 

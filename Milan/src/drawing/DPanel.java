@@ -46,4 +46,7 @@ public class DPanel extends JPanel {
 		shapes.add(s);
 	}
 	
+	public ArrayList<Shape> getShapes() {
+		return shapes;
+	}
 }
