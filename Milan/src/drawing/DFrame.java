@@ -40,7 +40,7 @@ public class DFrame extends JFrame {
 	private Point startPoint;
 	private JButton btnDelete;
 	private JButton btnModify;
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -67,33 +67,33 @@ public class DFrame extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		
+
 		panel = new DPanel();
 		contentPane.add(panel, BorderLayout.CENTER);
-		
+
 		panel.setFrame(this);
-		
+
 		JToolBar toolBar = new JToolBar();
 		contentPane.add(toolBar, BorderLayout.NORTH);
-		
+
 		tglSelect = new JToggleButton("Select");
 		toolBar.add(tglSelect);
-		
+
 		tglPoint = new JToggleButton("Point");
 		toolBar.add(tglPoint);
-		
+
 		tglLine = new JToggleButton("Line");
 		toolBar.add(tglLine);
-		
+
 		tglRectangle = new JToggleButton("Rectangle");
 		toolBar.add(tglRectangle);
-		
+
 		tglCircle = new JToggleButton("Circle");
 		toolBar.add(tglCircle);
-		
+
 		tglDonut = new JToggleButton("Donut");
 		toolBar.add(tglDonut);
-	
+
 		ButtonGroup buttonGroup = new ButtonGroup();
 		buttonGroup.add(tglSelect);
 		buttonGroup.add(tglPoint);
@@ -101,7 +101,7 @@ public class DFrame extends JFrame {
 		buttonGroup.add(tglRectangle);
 		buttonGroup.add(tglCircle);
 		buttonGroup.add(tglDonut);
-		
+
 		btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -116,12 +116,39 @@ public class DFrame extends JFrame {
 			}
 		});
 		toolBar.add(btnDelete);
-		
+
 		btnModify = new JButton("Modify");
+		btnModify.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				onModify();
+			}
+		});
 		toolBar.add(btnModify);
 		// String strRadius = String.valueOf(radius);
 	}
-	
+
+	protected void onModify() {
+		Iterator<Shape> it = panel.getShapes().iterator();
+		while (it.hasNext()) {
+			Shape s = it.next();
+			if (s.isSelected()) {
+				if (s instanceof Point) {
+
+				} else if (s instanceof Donut) {
+					DonutDialog dlg = new DonutDialog((Donut)s);
+					dlg.setVisible(true);
+				} else if (s instanceof Circle) {
+					CircleDialog dlg = new CircleDialog((Circle)s);
+					dlg.setVisible(true);
+				} else if (s instanceof Rectangle) {
+					RectangleDialog dlg = new RectangleDialog((Rectangle)s);
+					dlg.setVisible(true);
+				}
+			}
+		}
+		panel.repaint();
+	}
+
 	public void handleClick(MouseEvent e) {
 		if (tglSelect.isSelected()) {
 			Iterator<Shape> it = panel.getShapes().iterator();
@@ -142,34 +169,22 @@ public class DFrame extends JFrame {
 			}
 
 		} else if (tglRectangle.isSelected()) {
-			RectangleDialog dlg = new RectangleDialog();
+			Rectangle r = new Rectangle(new Point(e.getX(), e.getY()), 0, 0);
+			RectangleDialog dlg = new RectangleDialog(r);
 			dlg.setVisible(true);
-			int width = dlg.getRectWidth();
-			int height = dlg.getRectHeight();
-			if (width > 0) {
-				Rectangle r = new Rectangle(new Point(e.getX(), e.getY()), width, height);
-				panel.addShape(r);
-			}
-			
+			panel.addShape(r);			
 		} else if (tglCircle.isSelected()) {
-			CircleDialog dlg = new CircleDialog();
+			Circle c = new Circle(new Point(e.getX(), e.getY()), 0);
+			CircleDialog dlg = new CircleDialog(c);
 			dlg.setVisible(true);
-			int radius = dlg.getRadius();
-			if (radius > 0) {
-				Circle c = new Circle(new Point(e.getX(), e.getY()), radius);
-				panel.addShape(c);	
-			}
-			
+			panel.addShape(c);	
 		} else if (tglDonut.isSelected()) {
-			DonutDialog dlg = new DonutDialog();
+			Donut d = new Donut(new Point(e.getX(), e.getY()), 0, 0);
+			DonutDialog dlg = new DonutDialog(d);
 			dlg.setVisible(true);
-			int innerRadius = dlg.getInnerRadius();
-			int outerRadius = dlg.getOuterRadius();
-			if (outerRadius > 0 && innerRadius > 0) {
-				Donut d = new Donut(new Point(e.getX(), e.getY()), outerRadius, innerRadius);
-				panel.addShape(d);
-			}
+			panel.addShape(d);
 		}
+		
 		panel.repaint();
 	}
 
