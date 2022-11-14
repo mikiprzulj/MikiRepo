@@ -16,6 +16,8 @@ import geometry.Rectangle;
 import geometry.Shape;
 import gui.CircleDialog;
 import gui.DonutDialog;
+import gui.LineDialog;
+import gui.PointDialog;
 import gui.RectangleDialog;
 
 import java.awt.event.MouseEvent;
@@ -133,7 +135,8 @@ public class DFrame extends JFrame {
 			Shape s = it.next();
 			if (s.isSelected()) {
 				if (s instanceof Point) {
-
+					PointDialog dlg = new PointDialog((Point)s);
+					dlg.setVisible(true);
 				} else if (s instanceof Donut) {
 					DonutDialog dlg = new DonutDialog((Donut)s);
 					dlg.setVisible(true);
@@ -142,6 +145,9 @@ public class DFrame extends JFrame {
 					dlg.setVisible(true);
 				} else if (s instanceof Rectangle) {
 					RectangleDialog dlg = new RectangleDialog((Rectangle)s);
+					dlg.setVisible(true);
+				} else if (s instanceof Line) {
+					LineDialog dlg = new LineDialog((Line)s);
 					dlg.setVisible(true);
 				}
 			}
